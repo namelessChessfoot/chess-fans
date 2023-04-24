@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router";
+import Home from "./home/home";
+import Login from "./login/login";
+import Profile from "./profile/profile";
+import Search from "./search/search";
+import Player from "./player/player";
+import Game from "./game/game";
+import EditProfile from "./profile/edit-profile";
+import Base from "./base";
+import { configureStore } from "@reduxjs/toolkit";
+import userReducer from "./reducer/user-reducer";
+import pageReducer from "./reducer/page-reducer";
+import actionReducer from "./reducer/action-reducer";
+import { Provider, useDispatch } from "react-redux";
+import { getProfileThunk } from "./services/user-thunks";
+import React, { useEffect } from "react";
+const store = configureStore({
+  reducer: {
+    user: userReducer,
+    page: pageReducer,
+    action: actionReducer,
+  },
+});
+store.dispatch(getProfileThunk());
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Base>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/profile" element={<Profile self={true} />}></Route>
+            <Route
+              path="/profile/:username"
+              element={<Profile self={false} />}
+            ></Route>
+            <Route path="/search" element={<Search />}></Route>
+            <Route path="/player/:playerName" element={<Player />}></Route>
+            <Route path="/game/:gameId" element={<Game />}></Route>
+            <Route path="/edit-profile" element={<EditProfile />}></Route>
+            <Route path="/signup" element={<EditProfile />}></Route>
+          </Routes>
+        </Base>
+      </BrowserRouter>
+    </Provider>
   );
-}
+};
 
 export default App;
