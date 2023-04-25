@@ -23,3 +23,9 @@ export const logout = async () => {
   const resp = await request.post("/user/logout", {});
   return resp.data;
 };
+
+export const update = async (info) => {
+  console.log("update service");
+  const resp = await request.put("/user/update", info);
+  return resp.data;
+};

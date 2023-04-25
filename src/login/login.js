@@ -31,15 +31,18 @@ const Login = () => {
       },
     },
   ];
-  useEffect(() => {
-    if (logged(profile)) {
-      navigate("/");
-    }
-  }, [profile.username]);
   const onSubmit = () => {
     if (loading) return;
     if (username && password) {
-      dispatch(loginThunk({ username, password }));
+      dispatch(
+        loginThunk({
+          credential: { username, password },
+          onSuccess: () => {
+            console.log("Login Success");
+            navigate("/");
+          },
+        })
+      );
     }
   };
   const onSignup = () => {
@@ -50,14 +53,7 @@ const Login = () => {
       <Box align="center" pad={{ top: "30px" }} gap="20px">
         <Text size="5xl">Login</Text>
         {fields.map((config) => {
-          return (
-            <FormField
-              key={config.label}
-              config={config}
-              value={config.value}
-              onChange={config.onChange}
-            />
-          );
+          return <FormField key={config.label} config={config} />;
         })}
         <Button
           primary

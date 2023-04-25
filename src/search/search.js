@@ -8,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../component/loading";
 import { searchThunk } from "../services/page-thunks";
 const Search = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
   const query = queryString.parse(location.search);

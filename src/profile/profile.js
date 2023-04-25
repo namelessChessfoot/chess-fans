@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Avatar, Box, Text, Tabs, Tab } from "grommet";
+import { Avatar, Box, Text, Tabs, Tab, Button } from "grommet";
+import { Edit } from "grommet-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { logged, showDate } from "../common.js";
 import Loading from "../component/loading.js";
@@ -24,12 +25,12 @@ const Profile = ({ self }) => {
       navigate("/profile");
       return;
     }
-    if (self || username === profile.username) {
+    if (self) {
       dispatch(profileThunk());
     } else {
       dispatch(profileThunk(username));
     }
-  }, []);
+  }, [username]);
   useEffect(() => {
     if (!user.loading && !page.loading && data) {
       let tmp = {};
@@ -57,6 +58,7 @@ const Profile = ({ self }) => {
             pad={{ vertical: "25px", horizontal: "10vw" }}
             background="#555555"
             align="center"
+            style={{ position: "relative" }}
           >
             <Box
               direction="row"
@@ -85,6 +87,14 @@ const Profile = ({ self }) => {
                 )}`}</Text>
               </Box>
             </Box>
+            {self && (
+              <Button
+                style={{ position: "absolute", right: 30, top: 30 }}
+                onClick={() => navigate("/edit-profile")}
+              >
+                <Edit />
+              </Button>
+            )}
           </Box>
           <Box width="100%" flex="grow">
             <Tabs>

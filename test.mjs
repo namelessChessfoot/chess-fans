@@ -1,4 +1,5 @@
-const b = undefined;
-const a = { b };
+const a = [[0], [1], [2]];
+
+a.reverse();
 
 console.log(a);

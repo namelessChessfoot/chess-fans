@@ -15,12 +15,6 @@ const Player = () => {
     dispatch(playerThunk(playerName));
   }, [playerName]);
   const clickGame = (id) => navigate(`/game/${id}`);
-  // if (data?.player?.subscribed) {
-  //   console.log(data.player.subscribed);
-  //   data.games.forEach((g) => {
-  //     console.log(g.time);
-  //   });
-  // }
   return (
     <Box width="100%" align="center">
       {loading && <Loading />}
@@ -64,7 +58,15 @@ const Player = () => {
           </Box>
           <Box width="100%" flex="grow">
             <Tabs>
-              {data.player.subscribed ? (
+              <Tab title="Recent Games">
+                <GameBoard
+                  games={data.games}
+                  onClick={clickGame}
+                  username={data.player.username}
+                  title="recent game"
+                />
+              </Tab>
+              {!!data.player.subscribed && (
                 <Tab title="Unviewed Games">
                   <GameBoard
                     games={data.games.filter(
@@ -75,17 +77,7 @@ const Player = () => {
                     title="unviewd game"
                   />
                 </Tab>
-              ) : (
-                <></>
               )}
-              <Tab title="Recent Games">
-                <GameBoard
-                  games={data.games}
-                  onClick={clickGame}
-                  username={data.player.username}
-                  title="recent game"
-                />
-              </Tab>
             </Tabs>
           </Box>
         </Box>

@@ -13,8 +13,14 @@ const PlayerBar = ({ player }) => {
   const { avatar = A[0], rating, username, subscribed = false } = player;
   const [sub, setSub] = useState(!!subscribed);
   const onSubscribe = () => {
-    dispatch(followPlayerThunk(username));
-    setSub(!sub);
+    dispatch(
+      followPlayerThunk({
+        playerUsername: username,
+        onSuccess: (res) => {
+          setSub(res.subscribed);
+        },
+      })
+    );
   };
   const onClick = () => {
     navigate(`/player/${username}`);

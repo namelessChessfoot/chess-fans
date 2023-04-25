@@ -4,17 +4,19 @@ import {
   getProfileThunk,
   loginThunk,
   logoutThunk,
+  clearUserThunk,
+  updateThunk,
 } from "../services/user-thunks.js";
 const userSlice = createSlice({
   name: "user",
   initialState: { profile: {}, loading: false },
   extraReducers: {
     [registerThunk.fulfilled]: (state, { payload }) => {
+      console.log("ok", payload);
       state.profile = payload;
       state.loading = false;
     },
     [registerThunk.rejected]: (state, { error }) => {
-      state.profile = {};
       state.loading = false;
       if (error.message.includes("409")) {
         alert("This username has been used.");
@@ -23,7 +25,6 @@ const userSlice = createSlice({
       }
     },
     [registerThunk.pending]: (state, {}) => {
-      state.profile = {};
       state.loading = true;
     },
     //--------------------------------------------------------
@@ -58,7 +59,32 @@ const userSlice = createSlice({
       state.loading = true;
     },
     //--------------------------------------------------------
+    [updateThunk.fulfilled]: (state, { payload }) => {
+      state.profile = payload;
+      state.loading = false;
+    },
+    [updateThunk.rejected]: (state, { error: { message = "" } = {} }) => {
+      state.profile = {};
+      state.loading = false;
+      if (message.includes("401")) {
+        alert("Did not login");
+      } else if (message.includes("403")) {
+        alert("Wrong password");
+      } else {
+        alert("Update failed");
+      }
+    },
+    [updateThunk.pending]: (state, {}) => {
+      state.profile = {};
+      state.loading = true;
+    },
+    //--------------------------------------------------------
     [logoutThunk.fulfilled]: (state, {}) => {
+      state.profile = {};
+      state.loading = false;
+    },
+    //--------------------------------------------------------
+    [clearUserThunk.fulfilled]: (state, {}) => {
       state.profile = {};
       state.loading = false;
     },

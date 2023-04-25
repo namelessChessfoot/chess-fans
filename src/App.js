@@ -39,8 +39,14 @@ const App = () => {
             <Route path="/search" element={<Search />}></Route>
             <Route path="/player/:playerName" element={<Player />}></Route>
             <Route path="/game/:gameId" element={<Game />}></Route>
-            <Route path="/edit-profile" element={<EditProfile />}></Route>
-            <Route path="/signup" element={<EditProfile />}></Route>
+            <Route
+              path="/edit-profile"
+              element={<EditProfile self={true} />}
+            ></Route>
+            <Route
+              path="/signup"
+              element={<EditProfile self={false} />}
+            ></Route>
           </Routes>
         </Base>
       </BrowserRouter>

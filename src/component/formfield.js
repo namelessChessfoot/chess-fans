@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import { Box, TextInput, Text } from "grommet";
 
-const FormField = ({ config, value = "", onChange = () => {} }) => {
-  const { label, type, required = false } = config;
+const FormField = ({ config }) => {
+  const {
+    label,
+    type,
+    required = false,
+    value = "",
+    onChange = () => {},
+  } = config;
   const [warn, setWarn] = useState(false);
   const onBlur = () => {
     if (required && value.length === 0) {
@@ -23,7 +29,7 @@ const FormField = ({ config, value = "", onChange = () => {} }) => {
         gap="3px"
       >
         {required && <Text color="status-warning">*</Text>}
-        <Text>{label}</Text>
+        <Text style={{ whiteSpace: "nowrap" }}>{label}</Text>
       </Box>
       <TextInput
         placeholder={label}

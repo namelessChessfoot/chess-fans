@@ -15,6 +15,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutThunk } from "./services/user-thunks.js";
 import { clearStateThunk } from "./services/action-thunks.js";
+import { clearUserThunk } from "./services/user-thunks.js";
 import Loading from "./component/loading.js";
 const Base = ({ children }) => {
   const dispatch = useDispatch();
@@ -31,7 +32,14 @@ const Base = ({ children }) => {
       const { status, data } = action;
       dispatch(clearStateThunk());
       if (status === 401) {
-        navigate("/login");
+        dispatch(
+          clearUserThunk({
+            onSuccess: () => {
+              console.log("Triggered an API that needs login");
+              navigate("/login");
+            },
+          })
+        );
       }
     }
   }, [action.loading]);
@@ -47,8 +55,14 @@ const Base = ({ children }) => {
         tmp.push([
           "Logout",
           () => {
-            dispatch(logoutThunk());
-            navigate("/login");
+            dispatch(
+              logoutThunk({
+                onSuccess: () => {
+                  console.log("Logout ok,navigate to home");
+                  navigate("/");
+                },
+              })
+            );
           },
         ]);
       }

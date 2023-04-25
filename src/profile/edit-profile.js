@@ -1,27 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Box, Text, Button, Menu, Avatar, Keyboard } from "grommet";
+import { Box, Text, Button, Menu, Avatar, Keyboard, Form } from "grommet";
 import { useNavigate } from "react-router";
 import FormField from "../component/formfield";
 import { useDispatch, useSelector } from "react-redux";
-import { registerThunk } from "../services/user-thunks";
+import { registerThunk, updateThunk } from "../services/user-thunks";
 import { avatar as A } from "../common.js";
-const EditProfile = () => {
+const EditProfile = ({ self }) => {
   //This component is used by signup and edit-profile
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [myProfile, setMyProfile] = useState({
-    username: "",
-    password: "",
-    email: "",
-    bio: "",
-    avatar: A[1],
-  });
   const { profile, loading } = useSelector((state) => state.user);
+  const [myProfile, setMyProfile] = useState({});
   useEffect(() => {
-    if (profile.username === myProfile.username) {
-      navigate("/");
-    }
-  }, [profile.username]);
+    const init = {
+      username: "",
+      password: "",
+      email: "",
+      bio: "",
+      test: "??",
+      avatar: A[1],
+    };
+    setMyProfile({ ...init, ...profile });
+  }, []);
   const fields = [
     {
       label: "Username",
@@ -56,10 +56,40 @@ const EditProfile = () => {
       },
     },
   ];
+  const ok = () => {
+    return (
+      !loading && myProfile.username && myProfile.password && myProfile.avatar
+    );
+  };
   const onSubmit = () => {
-    if (loading) return;
-    if (myProfile.username && myProfile.password && myProfile.avatar) {
-      dispatch(registerThunk(myProfile));
+    if (ok()) {
+      const body = {};
+      for (let key in myProfile) {
+        if (!!myProfile[key]) {
+          body[key] = myProfile[key];
+        }
+      }
+      if (self) {
+        dispatch(
+          updateThunk({
+            profile: body,
+            onSuccess: () => {
+              console.log("Update ok, go to profile");
+              navigate("/profile");
+            },
+          })
+        );
+      } else {
+        dispatch(
+          registerThunk({
+            profile: body,
+            onSuccess: () => {
+              console.log("Register ok, go to home");
+              navigate("/");
+            },
+          })
+        );
+      }
     } else {
       alert("Fields with star are required!");
     }
@@ -75,29 +105,32 @@ const EditProfile = () => {
   return (
     <Keyboard target="document" onEnter={onSubmit}>
       <Box align="center" pad={{ top: "30px" }} gap="20px">
-        <Text size="5xl">Signup</Text>
+        <Text size="5xl">{self ? "Edit Profile" : "Signup"}</Text>
         {fields.map((config) => {
-          return (
-            <FormField
-              key={config.label}
-              config={config}
-              value={config.value}
-              onChange={config.onChange}
-            />
-          );
+          return <FormField key={config.label} config={config} />;
         })}
         <Box direction="row" align="center" gap="90px">
           <Text>Avatar</Text>
-          <Avatar src={myProfile.avatar} />
-          <Menu items={avatarMenu} />
+          <Avatar src={myProfile.avatar} round="small" />
+          <Menu items={avatarMenu} value={1} />
         </Box>
+        {self && (
+          <FormField
+            config={{
+              label: "Old Password",
+              type: "password",
+              value: myProfile.oldpassword,
+              required: true,
+              onChange: (e) => {
+                setMyProfile({ ...myProfile, oldpassword: e.target.value });
+              },
+            }}
+          />
+        )}
         <Button
-          disabled={
-            loading ||
-            !(myProfile.username && myProfile.password && myProfile.avatar)
-          }
+          disabled={!ok()}
           primary
-          label="Join Chess Fans!"
+          label={self ? "Update" : "Join Chess Fans!"}
           onClick={onSubmit}
         />
       </Box>
