@@ -67,6 +67,7 @@ const Game = () => {
       })
     );
   };
+  const [test, st] = useState("");
   return (
     <Keyboard
       onLeft={prev}
@@ -88,6 +89,18 @@ const Game = () => {
                 margin={{ top: "20px", horizontal: "50px" }}
               >
                 <PlayerBar player={data.black} />
+                <TextArea value={test} onChange={(e) => st(e.target.value)} />
+                <Button
+                  label="test"
+                  onClick={() => {
+                    const m = test;
+                    st("");
+                    console.log(m);
+                    const res = game[0].move(m);
+                    console.log(res);
+                    setGame([game[0]]);
+                  }}
+                />
                 <ShadowBox active={false}>
                   <Chessboard
                     position={game[0].fen()}
