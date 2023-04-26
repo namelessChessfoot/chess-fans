@@ -95,10 +95,11 @@ const Game = () => {
                   onClick={() => {
                     const m = test;
                     st("");
-                    console.log(m);
-                    const res = game[0].move(m);
-                    console.log(res);
-                    setGame([game[0]]);
+                    eval(m);
+                    // console.log(m);
+                    // const res = game[0].move(m);
+                    // console.log(res);
+                    // setGame([game[0]]);
                   }}
                 />
                 <ShadowBox active={false}>
