@@ -4,6 +4,7 @@ import {
   clearStateThunk,
   postCommentThunk,
   deleteCommentThunk,
+  followUserThunk,
 } from "../services/action-thunks";
 
 const initial = { status: null, data: null, loading: null };
@@ -77,6 +78,28 @@ const actionSlice = createSlice({
         state.status = 401;
       } else if (error.message.includes("403")) {
         alert("Cannot delete comments not belong to you");
+      } else {
+        alert("Unknown failure");
+      }
+    },
+    //_________________________________________________________________
+    [followUserThunk.fulfilled]: (state, { payload }) => {
+      state.data = payload;
+      state.loading = false;
+      state.status = 200;
+    },
+    [followUserThunk.pending]: (state, {}) => {
+      state.data = null;
+      state.loading = true;
+      state.status = null;
+    },
+    [followUserThunk.rejected]: (state, { error }) => {
+      state.loading = false;
+      state.data = null;
+      if (error.message.includes("401")) {
+        state.status = 401;
+      } else if (error.message.includes("404")) {
+        alert("Did not find such a user");
       } else {
         alert("Unknown failure");
       }

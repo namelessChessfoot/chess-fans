@@ -50,16 +50,23 @@ export const homeThunk = createAsyncThunk("page/home", async () => {
 
 export const profileThunk = createAsyncThunk(
   "page/profile",
-  async (username = "") => {
-    const promises = [playerService.getSubscribedPlayers(username)];
+  async ({ username = "", onSuccess = () => {} }) => {
+    const promises = [
+      playerService.getSubscribedPlayers(username),
+      userService.getFollowing(username),
+      userService.getFollower(username),
+      gameService.getUserComment(username),
+    ];
     if (username) {
       promises.push(userService.getProfile(username));
     }
-    const [subscribedPlayers, profile] = await Promise.all(promises);
-    const ret = { subscribedPlayers };
+    const [subscribedPlayers, following, follower, comments, profile] =
+      await Promise.all(promises);
+    const ret = { subscribedPlayers, following, follower, comments };
     if (profile) {
       ret.profile = profile;
     }
+    onSuccess(ret);
     return ret;
   }
 );

@@ -25,7 +25,29 @@ export const logout = async () => {
 };
 
 export const update = async (info) => {
-  console.log("update service");
   const resp = await request.put("/user/update", info);
+  return resp.data;
+};
+
+export const follow = async (username) => {
+  const resp = await request.post("/user/follow", { username });
+  return resp.data;
+};
+
+export const getFollowing = async (username) => {
+  let URL = "/user/following";
+  if (username) {
+    URL = `${URL}/${username}`;
+  }
+  const resp = await request.get(URL);
+  return resp.data;
+};
+
+export const getFollower = async (username) => {
+  let URL = "/user/follower";
+  if (username) {
+    URL = `${URL}/${username}`;
+  }
+  const resp = await request.get(URL);
   return resp.data;
 };

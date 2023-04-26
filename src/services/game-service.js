@@ -10,6 +10,15 @@ export const getComment = async (gameid) => {
   return resp.data;
 };
 
+export const getUserComment = async (username) => {
+  let URL = "/game/user/comment";
+  if (username) {
+    URL = `${URL}/${username}`;
+  }
+  const resp = await request.get(URL);
+  return resp.data;
+};
+
 export const deleteComment = async (commentid) => {
   const resp = await request.delete(`/game/comment/${commentid}`);
   return resp.data;
