@@ -66,7 +66,6 @@ const Game = () => {
         comment: { gameid: gameId, content: myComment },
         onSuccess: (newComment) => {
           setComments([newComment, ...comments]);
-          setMyComment("");
         },
       })
     );
