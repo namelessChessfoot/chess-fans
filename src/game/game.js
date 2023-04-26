@@ -45,7 +45,8 @@ const Game = () => {
   };
   const next = () => {
     if (cur !== data.moves.length - 1) {
-      game[0].move(data.moves[cur + 1]);
+      const a = game[0].move(data.moves[cur + 1]);
+      console.log(a);
       console.log(game[0].ascii());
       setCur(cur + 1);
       setGame([game[0]]);
