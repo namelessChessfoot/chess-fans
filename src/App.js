@@ -6,6 +6,7 @@ import Profile from "./profile/profile";
 import Search from "./search/search";
 import Player from "./player/player";
 import Game from "./game/game";
+import Debug from "./game/debug";
 import EditProfile from "./profile/edit-profile";
 import Base from "./base";
 import { configureStore } from "@reduxjs/toolkit";
@@ -47,6 +48,7 @@ const App = () => {
               path="/signup"
               element={<EditProfile self={false} />}
             ></Route>
+            <Route path="/debug" element={<Debug />}></Route>
           </Routes>
         </Base>
       </BrowserRouter>
