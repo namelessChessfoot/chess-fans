@@ -96,7 +96,11 @@ const EditProfile = ({ self }) => {
   };
   const avatarMenu = A.map((url) => {
     return {
-      label: <Avatar src={url} />,
+      label: (
+        <Box pad="20px" width="120px" align="center">
+          <Avatar src={url} round="none" />
+        </Box>
+      ),
       onClick: () => {
         setMyProfile({ ...myProfile, avatar: url });
       },
@@ -112,7 +116,7 @@ const EditProfile = ({ self }) => {
         <Box direction="row" align="center" gap="90px">
           <Text>Avatar</Text>
           <Avatar src={myProfile.avatar} round="small" />
-          <Menu items={avatarMenu} value={1} />
+          <Menu items={avatarMenu} dropBackground="border" />
         </Box>
         {self && (
           <FormField

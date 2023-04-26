@@ -4,6 +4,15 @@ const avatar = [
   "https://s1.52poke.wiki/wiki/thumb/2/21/001Bulbasaur.png/300px-001Bulbasaur.png",
   "https://s1.52poke.wiki/wiki/thumb/7/73/004Charmander.png/300px-004Charmander.png",
   "https://s1.52poke.wiki/wiki/thumb/3/39/007Squirtle.png/300px-007Squirtle.png",
+  "https://s1.52poke.wiki/wiki/thumb/0/0d/025Pikachu.png/260px-025Pikachu.png",
+  "https://s1.52poke.wiki/wiki/thumb/3/3e/039Jigglypuff.png/300px-039Jigglypuff.png",
+  "https://s1.52poke.wiki/wiki/thumb/d/d6/052Meowth.png/300px-052Meowth.png",
+  "https://s1.52poke.wiki/wiki/thumb/5/53/054Psyduck.png/300px-054Psyduck.png",
+  "https://s1.52poke.wiki/wiki/thumb/7/70/079Slowpoke.png/300px-079Slowpoke.png",
+  "https://s1.52poke.wiki/wiki/thumb/d/da/100Voltorb.png/300px-100Voltorb.png",
+  "https://s1.52poke.wiki/wiki/thumb/1/17/109Koffing.png/300px-109Koffing.png",
+  "https://s1.52poke.wiki/wiki/thumb/4/4f/120Staryu.png/300px-120Staryu.png",
+  "https://s1.52poke.wiki/wiki/thumb/e/e2/133Eevee.png/300px-133Eevee.png",
 ];
 
 const navPath = [
