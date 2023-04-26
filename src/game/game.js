@@ -53,6 +53,10 @@ const Game = () => {
       setGame([game[0]]);
     }
   };
+  const getChess = () => {
+    console.log("getChess");
+    return new Chess();
+  };
   const makeComment = () => {
     if (myComment.length === 0) {
       return;
