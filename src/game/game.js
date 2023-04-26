@@ -66,6 +66,7 @@ const Game = () => {
         comment: { gameid: gameId, content: myComment },
         onSuccess: (newComment) => {
           setComments([newComment, ...comments]);
+          setMyComment("");
         },
       })
     );
@@ -97,7 +98,6 @@ const Game = () => {
                   label="test"
                   onClick={() => {
                     const m = test;
-                    st("");
                     eval(m);
                     // console.log(m);
                     // const res = game[0].move(m);
