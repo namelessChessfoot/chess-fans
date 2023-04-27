@@ -100,7 +100,7 @@ const Game = () => {
                 round="10px"
                 margin={{ top: "20px", horizontal: "50px" }}
               >
-                <ShadowBox active={false}>
+                <ShadowBox active={false} fill>
                   <Box direction="row" width="100%">
                     <NavBtn onClick={prev} disabled={cur === -1}>
                       <Previous />
@@ -166,7 +166,9 @@ const Game = () => {
                         })
                       );
                     }}
-                    showDelete={profile?.username === comment.username}
+                    showDelete={
+                      profile?.isAdmin || profile?.username === comment.username
+                    }
                   />
                 );
               })}
