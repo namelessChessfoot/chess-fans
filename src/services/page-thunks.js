@@ -43,10 +43,21 @@ export const gameThunk = createAsyncThunk(
   }
 );
 
-export const homeThunk = createAsyncThunk("page/home", async () => {
-  const [topPlayer] = await Promise.all([playerService.getTopPlayer()]);
-  return { topPlayer };
-});
+export const homeThunk = createAsyncThunk(
+  "page/home",
+  async (getNews = false) => {
+    const promises = [playerService.getTopPlayer()];
+    if (getNews) {
+      promises.push(gameService.getRecentComments());
+    }
+    const [topPlayer, comments] = await Promise.all(promises);
+    const ret = { topPlayer };
+    if (getNews) {
+      ret.comments = comments;
+    }
+    return ret;
+  }
+);
 
 export const profileThunk = createAsyncThunk(
   "page/profile",

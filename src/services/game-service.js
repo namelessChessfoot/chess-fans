@@ -23,3 +23,9 @@ export const deleteComment = async (commentid) => {
   const resp = await request.delete(`/game/comment/${commentid}`);
   return resp.data;
 };
+
+// app.get("/api/game/following/comment", getRecentComments);
+export const getRecentComments = async () => {
+  const resp = await request.get(`/game/following/comment`);
+  return resp.data;
+};

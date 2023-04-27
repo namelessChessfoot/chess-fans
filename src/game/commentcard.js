@@ -4,13 +4,19 @@ import { Trash } from "grommet-icons";
 import ShadowBox from "../component/shadowbox";
 import { showDate } from "../common";
 
-const CommentCard = ({ comment = {}, onClick, deleteComment, showDelete }) => {
+const CommentCard = ({
+  comment = {},
+  onClick,
+  deleteComment,
+  showDelete = false,
+  background = "border",
+}) => {
   const { createdAt, content, avatar, username, _id: cid } = comment;
   return (
     <ShadowBox key={cid} active={!!onClick}>
       <Box direction="row">
         <Box
-          background="border"
+          background={background}
           pad="15px"
           direction="row"
           align="center"

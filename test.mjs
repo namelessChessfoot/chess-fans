@@ -1,5 +1,3 @@
-const a = [[0], [1], [2]];
+const a = [];
 
-a.reverse();
-
-console.log(a);
+console.log(!!a);
