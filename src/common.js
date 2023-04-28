@@ -13,6 +13,7 @@ const avatar = [
   "https://s1.52poke.wiki/wiki/thumb/1/17/109Koffing.png/300px-109Koffing.png",
   "https://s1.52poke.wiki/wiki/thumb/4/4f/120Staryu.png/300px-120Staryu.png",
   "https://s1.52poke.wiki/wiki/thumb/e/e2/133Eevee.png/300px-133Eevee.png",
+  "https://s1.52poke.wiki/wiki/thumb/6/6b/175Togepi.png/300px-175Togepi.png",
 ];
 
 const navPath = [
